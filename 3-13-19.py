@@ -8,22 +8,27 @@ import os
 
 
 root = Tk()
-root.geometry("500x500")
-# root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
+root.geometry("1000x1000")
 frame = Frame(root)
+imgList = []
 
-canvas = Canvas(root, width = 300, height = 300)      
+canvas = Canvas(root, width = 500, height = 500)
 canvas.pack() 
 
 def file():
-    root.filename = tkFileDialog.askopenfilename()
-    img = PIL.Image.open(root.filename)
-    pi = ImageTk.PhotoImage(img)
-    canvas.create_image((1,1),image=pi)
-    # canvas.create_image(20,20,image=img)
-    # PIL.ImageDraw.Draw(img)
+    files = tkFileDialog.askopenfiles()
+    for i in files:
+        imgList.append(i)
+        
+    
+    img = PIL.Image.open(root.filename).resize((100, 100))
+    
+    pi = PIL.ImageTk.PhotoImage(img)
+    
+    canvas.create_image((img.width/2 ,img.height/2),image=pi)
+    PIL.ImageDraw.Draw(pi)
 
-b = Button(root, text="OK", command=file)
+b = Button(root, text="Chose File", command=file)
 b.pack()
 
      
