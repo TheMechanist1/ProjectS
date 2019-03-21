@@ -2,7 +2,9 @@ from Tkinter import *
 import tkFileDialog
 import PIL
 import PIL.ImageDraw
+
 import PIL.ImageFont
+
 import PIL.ImageTk
 import os
 
@@ -31,7 +33,9 @@ def file():
     #go through all the files in the directory
     for paths in neatPath:
         try:
+
             imgList.append(PIL.Image.open(paths).resize((100, 100)).convert('RGBA'))
+
             
             #ignore the file if its not an image
         except IOError:
@@ -39,6 +43,7 @@ def file():
 
     #add all the images in imgList into the canvas and then update the canvas so they show up
     for index, img in enumerate(imgList):
+
         draw = PIL.ImageDraw.Draw(img)
         font = PIL.ImageFont.truetype('K:\\EngineerTech\\AP Comp Science Principals\\14KeithA\\21AbbeE\\ProjectS\\Roboto-Bold.ttf', size=30)
         color = 'RGBA(255, 0, 0, 100)'
@@ -52,6 +57,7 @@ def file():
 #make the canvas and button
 canvas = Canvas(root, width = 1000, height = 1000)
 buttonList.append(Button(root, text="Chose File", command=file))
+
 #Create a rectangle for the buttons to go in
 canvas.create_rectangle(0, 0, 75, 700, fill="#476042")
 
@@ -61,6 +67,7 @@ for button in buttonList:
     button.pack()
     
 canvas.pack() 
+
 
 root = Tk()
 scrollbar = Scrollbar(root)
@@ -73,5 +80,6 @@ scrollbar .config( command = mylist.yview )
 
 mainloop()
 canvas.update()
+
 #start the program
 root.mainloop()
