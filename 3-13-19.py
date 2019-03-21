@@ -66,20 +66,15 @@ canvas.create_rectangle(0, 0, 75, 700, fill="#476042")
 for button in buttonList:
     button.pack()
     
+
+
+
+w = Scale(root, from_=0, to=100, orient=HORIZONTAL)
+w.pack()
+
+def show_values():
+    print (w.get())
+
 canvas.pack() 
-
-
-root = Tk()
-scrollbar = Scrollbar(root)
-scrollbar.pack( side = RIGHT, fill =Y)
-mylist = Listbox(root, yscrollcommand = scrollbar.set )
-for line in range(100):
-    mylist .insert(END, "This is line number" +str (line))
-mylist.pack( side = LEFT, fill = BOTH )
-scrollbar .config( command = mylist.yview )
-
-mainloop()
-canvas.update()
-
 #start the program
 root.mainloop()
