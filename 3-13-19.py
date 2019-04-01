@@ -45,9 +45,9 @@ def file():
     for index, img in enumerate(imgList):
 
         draw = PIL.ImageDraw.Draw(img)
-        font = PIL.ImageFont.truetype('K:\\EngineerTech\\AP Comp Science Principals\\14KeithA\\21AbbeE\\ProjectS\\Roboto-Bold.ttf', size=30)
+        font = PIL.ImageFont.truetype('K:\\EngineerTech\\AP Comp Science Principals\\14KeithA\\22Cooksleyd\\ProjectS\\Roboto-Bold.ttf', size=10)
         color = 'RGBA(255, 0, 0, 100)'
-        draw.text((0, 0), ":)", fill=color, font=font)
+        draw.text((0, 0), "Cooksley Co.", fill=color, font=font)
         pi = PIL.ImageTk.PhotoImage(img)
         pImgList.append(pi)
         canvas.create_image((img.width/2 + index*img.width, img.height/2),image=pi)
@@ -58,8 +58,6 @@ def file():
 canvas = Canvas(root, width = 1000, height = 1000)
 buttonList.append(Button(root, text="Chose File", command=file))
 
-#Create a rectangle for the buttons to go in
-canvas.create_rectangle(0, 0, 75, 700, fill="#476042")
 
 
 #Init the button before the canvas so it shows up above the canvas
@@ -67,13 +65,6 @@ for button in buttonList:
     button.pack()
     
 
-
-
-w = Scale(root, from_=0, to=100, orient=HORIZONTAL)
-w.pack()
-
-def show_values():
-    print (w.get())
 
 canvas.pack() 
 #start the program
