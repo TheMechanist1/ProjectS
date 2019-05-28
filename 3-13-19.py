@@ -18,8 +18,13 @@ imgList = []
 pImgList = []
 width = 300
 height = 300
-
-
+red = Scale(root, from_=0, to=255, orient=HORIZONTAL)
+green = Scale(root, from_=0, to=255, orient=HORIZONTAL)
+blue = Scale(root, from_=0, to=255, orient=HORIZONTAL)
+help(red)
+red.pack()
+green.pack()
+blue.pack()
 
 def render(list):
     y = 0
@@ -27,7 +32,7 @@ def render(list):
     otherIndex = 0
     for index, img in enumerate(list):
         draw = PIL.ImageDraw.Draw(img)
-        font = PIL.ImageFont.truetype('Roboto-Bold.ttf', size=10)
+        # font = PIL.ImageFont.truetype('Roboto-Bold.ttf', size=10)
         color = 'RGBA(255, 255, 255, 255)'
         # draw.text((25, 25), "Cooksley Co.", fill=color, font=font)
         pi = PIL.ImageTk.PhotoImage(img)
@@ -47,7 +52,7 @@ def render(list):
 def file():
     #ask for the directory
     #Todo: remove the path before you deploy
-    directory = filedialog.askdirectory(initialdir="C:\\Users\\Dylan Cooksley\\Pictures\\Camera Roll")
+    directory = filedialog.askdirectory(initialdir="c:\\users\\22cooksleyd\\pictures\\")
     
     #list all files in the directory
     files = os.listdir(directory)
@@ -69,7 +74,7 @@ def file():
     #add all the images in imgList into the canvas and then update the canvas so they show up
     render(imgList)
 
-def negate():
+def swirlPic():
     i = 0
     x = 0
     y = 0
@@ -125,18 +130,51 @@ def negate():
         i = i + 1
 
     render(imgList)
+    
+def brighten():
+    i = 0
+    x = 0
+    y = 0
+    for img in imgList:
 
-#make the canvas and button
+       #multiply the colors by 2 to brighten the img
+        for y in range(img.height):
+            for x in range(img.width):
+                # read and write the pixel
+                r = img.getpixel((x,y))[0]
+                g = img.getpixel((x,y))[1]
+                b = img.getpixel((x,y))[2]
+                r *= 2
+                g *= 2
+                b *= 2
+                img.putpixel((x, y), (r, g, b))
+
+        i = i + 1
+
+    render(imgList)
+    
+def paint( event ):
+   python_green = "#476042"
+   x1, y1 = ( event.x - 1 ), ( event.y - 1 )
+   x2, y2 = ( event.x + 1 ), ( event.y + 1 )
+   canvas.create_oval( x1, y1, x2, y2, fill = python_green )
+
+#make the canvas and buttons
 canvas = Canvas(root, width = 1000, height = 1000)
-buttonList.append(Button(root, text="Chose File", command=file))
-buttonList.append(Button(root, text="Negative", command=negate))
+choseFile = Button(root, text="Chose File", command=file)
+swirl = Button(root, text="Swirl", command=swirlPic)
+brighten = Button(root, text="brighten", command=brighten)
+buttonList.append(choseFile)
+buttonList.append(swirl)
+buttonList.append(brighten)
+
 
 #Init the button before the canvas so it shows up above the canvas
 for button in buttonList:
     button.pack()
     
+canvas.bind( "<B1-Motion>", paint )
 
-
-canvas.pack() 
+canvas.pack(expand = YES, fill = BOTH) 
 #start the program
 root.mainloop()
